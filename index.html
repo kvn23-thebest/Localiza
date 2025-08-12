@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <title>Confirma aqui</title>
+</head>
+<body>
+  <h2>Confirma sua localização pra gente!</h2>
+  <button onclick="pegarLocalizacao()">Clique aqui para confirmar</button>
+  <p id="status"></p>
+  <p id="coords"></p>
+
+  <script>
+    function pegarLocalizacao() {
+      const status = document.getElementById('status');
+      const coords = document.getElementById('coords');
+
+      if (!navigator.geolocation) {
+        status.textContent = 'Geolocalização não é suportada pelo seu navegador.';
+        return;
+      }
+
+      status.textContent = 'Pegando localização...';
+
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          const latitude = position.coords.latitude;
+          const longitude = position.coords.longitude;
+          status.textContent = 'Localização capturada com sucesso!';
+          coords.textContent = `Latitude: ${latitude} | Longitude: ${longitude}`;
+          // Aqui tu pode adicionar código pra enviar essa info pra algum lugar
+        },
+        () => {
+          status.textContent = 'Não foi possível obter sua localização.';
+        }
+      );
+    }
+  </script>
+</body>
+</html>
