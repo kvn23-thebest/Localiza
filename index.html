@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <title>Confirma sua localização</title>
+</head>
+<body>
+  <h2>Clica aí pra confirmar sua localização</h2>
+  <button onclick="pegarLocalizacao()">Clique aqui para confirmar</button>
+  <p id="status"></p>
+
+  <script>
+    function pegarLocalizacao() {
+      const status = document.getElementById('status');
+
+      if (!navigator.geolocation) {
+        status.textContent = 'Geolocalização não suportada pelo navegador.';
+        return;
+      }
+
+      status.textContent = 'Pegando localização...';
+
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          const latitude = position.coords.latitude;
+          const longitude = position.coords.longitude;
+          status.textContent = 'Localização capturada! Abrindo no Google Maps...';
+
+          const url = `https://www.google.com/maps?q=${latitude},${longitude}`;
+          window.open(url, '_blank');
+        },
+        () => {
+          status.textContent = 'Não foi possível obter sua localização.';
+        }
+      );
+    }
+  </script>
+</body>
+</html>Não foi possível obter sua localização.';
+        }
+      );
+    }
+  </script>
+</body>
+</html>
